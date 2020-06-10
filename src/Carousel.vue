@@ -50,6 +50,7 @@ import debounce from "./utils/debounce";
 import Navigation from "./Navigation.vue";
 import Pagination from "./Pagination.vue";
 import Slide from "./Slide.vue";
+import supportsPassive from "./utils/support-passive";
 
 const transitionStartNames = {
   onwebkittransitionstart: "webkitTransitionStart",
@@ -739,13 +740,13 @@ export default {
       document.addEventListener(
         this.isTouch ? "touchend" : "mouseup",
         this.onEnd,
-        true
+              { capture: true, passive: true }
       );
 
       document.addEventListener(
         this.isTouch ? "touchmove" : "mousemove",
         this.onDrag,
-        true
+              { capture: true, passive: true }
       );
 
       this.startTime = e.timeStamp;
@@ -934,7 +935,8 @@ export default {
     if ((this.isTouch && this.touchDrag) || this.mouseDrag) {
       this.$refs["VueCarousel-wrapper"].addEventListener(
         this.isTouch ? "touchstart" : "mousedown",
-        this.onStart
+        this.onStart,
+              supportsPassive() ? { passive: true } : false
       );
     }
 
