@@ -3,7 +3,7 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import Carousel from '../../../src/Carousel.vue';
 import Slide  from '../../../src/Slide.vue';
- 
+
 describe('Carousel component', () => {
   describe('Default mounting properties', () => {
     it('should mount successfully', () => {
@@ -171,7 +171,7 @@ describe('Carousel component', () => {
       wrapper.vm.autoplayAdvancePage();
       expect(spy).toHaveBeenCalledWith('test');
 
-      spy.mockRestore(); 
+      spy.mockRestore();
       done()
     });
 
@@ -854,6 +854,16 @@ describe('Carousel component', () => {
       expect(wrapper.emitted().transitionEnd).toBeDefined();
     });
   });
+
+  it('should call removeEventListeners on destroy', () => {
+    const wrapper = mount(Carousel);
+
+    const carouselInstance = wrapper.vm;
+    const spy = jest.spyOn(carouselInstance, "removeWindowEventListeners");
+    carouselInstance.$destroy();
+
+    expect(spy).toHaveBeenCalled;
+  })
 
   it('should decrease current page number by 1 when advance page backward is called', done => {
     const wrapper = mount(Carousel, {
