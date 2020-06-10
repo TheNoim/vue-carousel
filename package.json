@@ -1,5 +1,5 @@
 {
-  "name": "vue-carousel",
+  "name": "@noim/vue-carousel",
   "version": "0.18.0",
   "description": "A flexible, responsive, touch-friendly carousel for Vue.js",
   "main": "dist/vue-carousel.ssr.min.js",
