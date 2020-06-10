@@ -19,13 +19,13 @@
 ## Installation
 
 ``` bash
-npm install vue-carousel
+npm install @noim/vue-carousel
 ```
 
 or if you prefer yarn
 
 ``` bash
-yarn add vue-carousel
+yarn add @noim/vue-carousel
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ You may install Vue Carousel globally:
 
 ``` js
 import Vue from 'vue';
-import VueCarousel from 'vue-carousel';
+import VueCarousel from '@noim/vue-carousel';
 
 Vue.use(VueCarousel);
 ```
@@ -47,7 +47,7 @@ This will make **&lt;carousel&gt;** and **&lt;slide&gt;** available to all compo
 Include the carousel directly into your component using import:
 
 ``` js
-import { Carousel, Slide } from 'vue-carousel';
+import { Carousel, Slide } from '@noim/vue-carousel';
 
 export default {
   ...
@@ -93,6 +93,7 @@ export default {
 | speed                       | Number  | 500     | Slide transition speed. Number of milliseconds accepted.                                                                                                                                                                                                                              |
 | tagName                     | String  | slide   | Name (tag) of slide component. Overwrite with coponent name when extending slide component.                                                                                                                                                                                           |
 | touchDrag                   | Boolean | true    | Flag to toggle touch dragging.                                                                                                                                                                                                                                                        |
+| infiniteLoop                | Boolean | false   | Flag to make the carousel loop infinitely without scrolling back.                                                                                                                                                                                                                        |
 | value                       | Number  |         | Support for v-model functionality. Setting this value will change the current page to the number inputted (if between 0 and pageCount).                                                                                                                                               |
 
 
