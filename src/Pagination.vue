@@ -40,9 +40,10 @@ export default {
         : "top";
     },
     paginationCount() {
-      return this.carousel && this.carousel.scrollPerPage
+      let paginationCount = this.carousel && this.carousel.scrollPerPage
         ? this.carousel.pageCount
         : this.carousel.slideCount || 0;
+      return this.carousel.infiniteLoop ? paginationCount / 3 : paginationCount;
     },
     dotContainerStyle() {
       const { carousel } = this;
@@ -70,6 +71,7 @@ export default {
      * return {void}
      */
     goToPage(index) {
+      if (this.carousel.infiniteLoop) index += this.carousel.realPageCount
       /**
        * @event paginationclick
        * @type {number}
@@ -83,7 +85,9 @@ export default {
      * @return {boolean}
      */
     isCurrentDot(index) {
-      return index === this.carousel.currentPage;
+      return this.carousel.infiniteLoop ?
+              index === this.carousel.currentPage % this.carousel.realPageCount :
+              index === this.carousel.currentPage;
     },
 
     /**
