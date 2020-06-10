@@ -45,7 +45,8 @@ module.exports = {
         options: {
           presets: [
             ['@babel/preset-env', {
-              useBuiltIns: 'usage'
+              useBuiltIns: 'usage',
+              corejs: { version: 3 }
             }]
           ],
           comments: false
