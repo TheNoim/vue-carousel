@@ -343,6 +343,13 @@ export default {
     rtl: {
       type: Boolean,
       default: false
+    },
+    /**
+     * Width used to pre-calculate on ssr (Nuxt)
+     */
+    ssrWidth: {
+      type: Number,
+      default: 1080
     }
   },
   watch: {
@@ -402,7 +409,7 @@ export default {
       }
 
       const breakpointArray = this.perPageCustom;
-      const width = this.browserWidth;
+      const width = this.$isServer ? this.ssrWidth : this.browserWidth;
 
       const breakpoints = breakpointArray.sort(
         (a, b) => (a[0] > b[0] ? -1 : 1)
@@ -482,7 +489,7 @@ export default {
      * @return {Number} Slide width
      */
     slideWidth() {
-      const width = this.carouselWidth - this.spacePadding * 2;
+      const width = (this.$isServer ? this.ssrWidth : this.carouselWidth) - this.spacePadding * 2;
       const perPage = this.currentPerPage;
 
       return width / perPage;
@@ -565,6 +572,7 @@ export default {
      * in order to keep the magnet container in sync with the height its reference node.
      */
     attachMutationObserver() {
+      if (typeof window === "undefined") return;
       const MutationObserver =
         window.MutationObserver ||
         window.WebKitMutationObserver ||
@@ -617,7 +625,7 @@ export default {
      * @return {Number} Browser"s width in pixels
      */
     getBrowserWidth() {
-      this.browserWidth = window.innerWidth;
+      this.browserWidth = typeof window === "undefined" ? this.ssrWidth : window.innerWidth;
       return this.browserWidth;
     },
     /**
@@ -917,7 +925,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener(
+    if (typeof window !== "undefined") window.addEventListener(
       "resize",
       debounce(this.onResize, this.refreshRate)
     );
@@ -954,7 +962,7 @@ export default {
   },
   beforeDestroy() {
     this.detachMutationObserver();
-    window.removeEventListener("resize", this.getBrowserWidth);
+    if (typeof window !== "undefined") window.removeEventListener("resize", this.getBrowserWidth);
     this.$refs["VueCarousel-inner"].removeEventListener(
       this.transitionstart,
       this.handleTransitionStart

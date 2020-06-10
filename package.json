@@ -2,9 +2,10 @@
   "name": "vue-carousel",
   "version": "0.18.0",
   "description": "A flexible, responsive, touch-friendly carousel for Vue.js",
-  "main": "dist/vue-carousel.min.js",
+  "main": "dist/vue-carousel.ssr.min.js",
+  "browser": "dist/vue-carousel.min.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js && npm run updateDocAssets",
+    "build": "webpack --config webpack.prod.js && webpack --config webpack.prod.ssr.js && npm run updateDocAssets",
     "coveralls": "cat coverage/client/lcov.info | ./node_modules/.bin/coveralls",
     "dev": "vue-play start --standalone",
     "dev:build": "vue-play build",
@@ -80,6 +81,7 @@
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
   }
 }
