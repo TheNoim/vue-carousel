@@ -5,7 +5,7 @@
     v-bind:class="{ [`VueCarousel-pagination--${paginationPositionModifierName}`]: paginationPositionModifierName }"
   >
     <div class="VueCarousel-dot-container" role="tablist" :style="dotContainerStyle">
-      <button
+      <button type="button"
         v-for="(page, index) in paginationCount"
         :key="`${page}_${index}`"
         class="VueCarousel-dot"
